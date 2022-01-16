@@ -30,6 +30,7 @@ public class ResourceController {
 
     @GetMapping("/")
     public ResponseEntity<List<Resource>> getAll(){
+
         return new ResponseEntity<>(services.getAll(), HttpStatus.OK);
     }
 
@@ -49,9 +50,9 @@ public class ResourceController {
         return new ResponseEntity<>("Resourse unavailable", HttpStatus.OK);
     }
 
-    @GetMapping("/returnResource/{id}")
+    @GetMapping("/return-resource/{id}")
     public ResponseEntity<String> returnResource(@PathVariable("id") String id){
-        if(services.returnResource(id))
+        if(Boolean.TRUE.equals(services.returnResource(id)))
             return new ResponseEntity<>("Successfull Returned", HttpStatus.OK);
 
         return new ResponseEntity<>("Successfull Returned", HttpStatus.CONFLICT);
@@ -62,6 +63,7 @@ public class ResourceController {
             @Validated
             @RequestBody
                     Resource resource){
+
         return new ResponseEntity<>(services.add(resource), HttpStatus.OK);
     }
 
@@ -75,11 +77,50 @@ public class ResourceController {
         return new ResponseEntity<>(services.update(request, id), HttpStatus.OK);
     }
 
+    @PutMapping("/resource/change-name/{id}")
+    public ResponseEntity<Resource> editName(
+            @PathVariable
+                    String id,
+            @Validated
+            @RequestBody
+                Resource request){
+        return new ResponseEntity<>(services.updateName(request.getName(), id), HttpStatus.OK);
+    }
+
+    @PutMapping("/resource/change-return-date/{id}")
+    public ResponseEntity<Resource> editDate(
+            @PathVariable
+                    String id,
+            @Validated
+            @RequestBody
+                    Resource request){
+        return new ResponseEntity<>(services.updateReturnDate(request.getReturnDate(), id), HttpStatus.OK);
+    }
+
+    @PutMapping("/resource/change-type/{id}")
+    public ResponseEntity<Resource> editType(
+            @PathVariable
+                    String id,
+            @Validated
+            @RequestBody
+                    Resource request){
+        return new ResponseEntity<>(services.updateType(request.getType(), id), HttpStatus.OK);
+    }
+
+    @PutMapping("/resource/change-thematic/{id}")
+    public ResponseEntity<Resource> editThematic(
+            @PathVariable
+                    String id,
+            @Validated
+            @RequestBody
+                    Resource request){
+        return new ResponseEntity<>(services.updateThematic(request.getThematic(), id), HttpStatus.OK);
+    }
+
     @DeleteMapping("/resource/{id}")
     public ResponseEntity<String> delete(
             @PathVariable
                     String id){
-
         services.delete(id);
 
         return new ResponseEntity<>("Resource whit ID: "+id+" Deleted", HttpStatus.OK);

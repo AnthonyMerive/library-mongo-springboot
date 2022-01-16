@@ -25,13 +25,15 @@ public class Resource implements Serializable {
     @NonNull
     private String thematic;
 
+    @NonNull
     private Boolean isAvailable;
 
     public Resource() {
-        name = "Default";
+        name = "name empty";
         returnDate = LocalDate.now();
-        type = "Default";
-        thematic = "Default";
+        type = "type empty";
+        thematic = "thematic empty";
+        isAvailable = true;
     }
 
     public String getId() {
@@ -45,6 +47,15 @@ public class Resource implements Serializable {
 
     public void setName(@NonNull String name) {
         this.name = name;
+    }
+
+    @NonNull
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(@NonNull LocalDate returnDate) {
+        this.returnDate = returnDate;
     }
 
     @NonNull
@@ -66,20 +77,12 @@ public class Resource implements Serializable {
     }
 
     @NonNull
-    public LocalDate getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(@NonNull LocalDate returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public Boolean getisAvailable() {
+    public Boolean getAvailable() {
         return isAvailable;
     }
 
-    public void setisAvailable(Boolean state) {
-        this.isAvailable = state;
+    public void setAvailable(@NonNull Boolean available) {
+        isAvailable = available;
     }
 
     @Override

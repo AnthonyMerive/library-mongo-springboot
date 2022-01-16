@@ -6,6 +6,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class ResourceServices {
         Resource resource = resources.get();
 
         resource.setName(request.getName());
-        resource.setisAvailable(request.getisAvailable());
+        resource.setAvailable(request.getAvailable());
         resource.setReturnDate(request.getReturnDate());
         resource.setType(request.getType());
         resource.setThematic(request.getThematic());
@@ -46,9 +47,53 @@ public class ResourceServices {
         return repository.save(resource);
     }
 
+    public Resource updateName(String name, String id) {
+
+        Optional<Resource> resources = Optional.ofNullable(this.getById(id));
+
+        Resource resource = resources.get();
+
+        resource.setName(name);
+
+        return repository.save(resource);
+    }
+
+    public Resource updateReturnDate(LocalDate date, String id) {
+
+        Optional<Resource> resources = Optional.ofNullable(this.getById(id));
+
+        Resource resource = resources.get();
+
+        resource.setReturnDate(date);
+
+        return repository.save(resource);
+    }
+
+    public Resource updateType(String type, String id) {
+
+        Optional<Resource> resources = Optional.ofNullable(this.getById(id));
+
+        Resource resource = resources.get();
+
+        resource.setType(type);
+
+        return repository.save(resource);
+    }
+
+    public Resource updateThematic(String thematic, String id) {
+
+        Optional<Resource> resources = Optional.ofNullable(this.getById(id));
+
+        Resource resource = resources.get();
+
+        resource.setThematic(thematic);
+
+        return repository.save(resource);
+    }
+
     public Boolean availability(String id) {
         try {
-            return this.getById(id).getisAvailable();
+            return this.getById(id).getAvailable();
         } catch (Exception e) {
             return false;
         }
@@ -60,7 +105,7 @@ public class ResourceServices {
         Resource resource = resources.get();
 
         if (resource.getId() != null) {
-            resource.setisAvailable(true);
+            resource.setAvailable(true);
             this.update(resource, id);
             return this.availability(resource.getId());
         }
