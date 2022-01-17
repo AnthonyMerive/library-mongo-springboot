@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*",
         methods = {RequestMethod.GET,
-        RequestMethod.DELETE,
+        RequestMethod.PUT,
         RequestMethod.POST,
         RequestMethod.DELETE}
 )
